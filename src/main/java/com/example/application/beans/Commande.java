@@ -9,7 +9,7 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String date;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Adresse adresse;
     @ManyToOne
     private User user;

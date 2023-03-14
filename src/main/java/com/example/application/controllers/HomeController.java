@@ -45,7 +45,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home", params = "ProcessAddAction")
     public String ProcessAddAction(@RequestParam(value = "idArticle") String idArticle,
-                                   @SessionAttribute("cart") ArrayList<Article> cart) {
+                                   @ModelAttribute("cart") ArrayList<Article> cart) {
         for (int i = 0; i < cart.size(); i++) {
             if (cart.get(i).getId() == Integer.parseInt(idArticle)) {
                 cart.remove(i);
@@ -59,9 +59,5 @@ public class HomeController {
 
         return "redirect:home";
     }
-
-    @RequestMapping(value = "/home", params = "checkFav")
-    public boolean checkFav(@RequestParam(value = "idArticle") String idArticle) {
-        return articleRepository.existsById(Integer.parseInt(idArticle));
-    }
+    
 }

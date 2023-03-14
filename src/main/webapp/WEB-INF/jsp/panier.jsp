@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -34,17 +36,16 @@
 				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a><a
 				href="/panier" style="text-decoration: none;"><i
 				class="bi bi-cart4"
-				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"><c:if
-						test="${cart.size()>0}">
+				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw">
 						<div
 							style="color: white; background-image: url('/images/paw.svg'); font-size: x-small; border-radius: 50%; text-align: center; display: inline-block; padding: 9px 11px 2px 10px; right: 6.9%; font-weight: bold; position: absolute;">${cart.size()}</div>
-					</c:if></i></a><a href="#"><i class="bi bi-question-circle-fill"
+					</i></a><a href="#"><i class="bi bi-question-circle-fill"
 				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a>
 		</div>
 	</header>
-
+<form:form method="post" action="/panier" modelAttribute="commande">
 	<section class="h-100 h-custom" style="background-color: #eee;">
-    		<form>
+
     			<div class="container py-5 h-100">
     				<div
     					class="row d-flex justify-content-center align-items-center h-100">
@@ -82,7 +83,7 @@
     														</div>
     														<div class="d-flex flex-row align-items-center">
     															<div style="width: 80px;">
-    																<h5 class="mb-0">${article.prix}</h5>
+    																<h5 class="mb-0"> <fmt:formatNumber value="${article.prix}" type="currency" currencySymbol="&euro;"/></h5>
     															</div>
     															<form>
                                                                     <input type="hidden" name="idArticle" value="${article.id}">
@@ -95,7 +96,7 @@
     											</div>
     										</c:forEach>
     
-    										<form>
+
     											<div class="container py-5 w-50"
     												style="position: absolute; bottom: 0;">
     												<div
@@ -105,36 +106,24 @@
     															<div class="card-body p-4">
     
     																<div class="row">
-    
-    
-    
+
     																	<div
     																		class="d-flex justify-content-between align-items-center mb-4">
     																		<div>
     																			<p class="mb-1">Liste Adresses</p>
     																		</div>
     																	</div>
-    																	<selectOneRadio
-    																		value="${adresse}" converter="omnifaces.SelectItemsConverter">
-    
-    																		<selectItems value="${adresses}"
-    																			var="adresse" itemValue="${adresse}" itemLabel="${adresse.adresse}">
-    
-    																		</selectItems>
-    
-    
-    																	</selectOneRadio>
-    
-    
+
+                                                                        <form:radiobuttons path="" name="adresse" items="${adresses}" itemLabel="adresse" itemValue="id"/>
+
     																</div>
-    
-    
+
     															</div>
     														</div>
     													</div>
     												</div>
     											</div>
-    										</form>
+
     									</div>
     
     									<div class="col-lg-5">
@@ -191,7 +180,7 @@
     												</div>
     
     
-    
+
     												<hr class="my-4"></hr>
     												<c:set var="soustotal" value="${0}" />
     												<c:forEach var="article"
@@ -199,14 +188,16 @@
     													<c:set var="soustotal" value="${soustotal + article.prix}" />
     												</c:forEach>
     												<div class="d-flex justify-content-between">
-    													<p class="mb-2">Subtotal</p>
-    													${soustotal }
+    													<p class="mb-2">Subtotal: </p>
+
+                                                        <fmt:formatNumber value="${soustotal}" type="currency" currencySymbol="&euro;"/>
 
     												</div>
     
     												<div class="d-flex justify-content-between">
-    													<p class="mb-2">Shipping</p>
-    													${20 }
+    													<p class="mb-2">Shipping: </p>
+                                                        <fmt:formatNumber value="${20}" type="currency" currencySymbol="&euro;"/>
+
     												</div>
     
     												<div class="d-flex justify-content-between">
@@ -217,27 +208,25 @@
     													value="${soustotal+20+((soustotal+20)*0.2)}" />
     
     												<div class="d-flex justify-content-between mb-4">
-    													<p class="mb-2">Total(Incl. taxes)</p>
-    												${total }
+    													<p class="mb-2">Total(Incl. taxes): </p>
+                                                        <fmt:formatNumber value="${total}" type="currency" currencySymbol="&euro;"/>
     												</div>
 
-                                                    <input type="submit" name="commander" class="btn btn-info btn-block btn-lg" >
+                                                    <input type="submit" type="submit" value="Submit" id="submit" class="btn btn-info btn-block btn-lg" >
 
     											</div>
     										</div>
-    
     									</div>
-    
+
     								</div>
-    
     							</div>
     						</div>
     					</div>
     				</div>
     			</div>
-    		</form>
-    	</section>
 
+    </section>
+  </form:form>
 
 
 </body>

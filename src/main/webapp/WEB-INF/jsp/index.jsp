@@ -34,11 +34,10 @@
 				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a><a
 				href="/panier" style="text-decoration: none;"><i
 				class="bi bi-cart4"
-				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"><c:if
-						test="${cart.size()>0}">
+				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw">
 						<div
 							style="color: white; background-image: url('/images/paw.svg'); font-size: x-small; border-radius: 50%; text-align: center; display: inline-block; padding: 9px 11px 2px 10px; right: 6.9%; font-weight: bold; position: absolute;">${cart.size()}</div>
-					</c:if></i></a><a href="#"><i class="bi bi-question-circle-fill"
+					</i></a><a href="#"><i class="bi bi-question-circle-fill"
 				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a>
 		</div>
 	</header>
@@ -97,20 +96,20 @@
 							<p class="card-text">${article.description}</p>
 
 						</div>
-						<form>
+
 						<div class="card-footer">
-							<c:if
+							<form><c:if
 								test="${!empty login.username and !empty login.password}">
 
-                                <input type="image" name="ProcessFavAction"  src="${ article.favoris.contains(login) ? '/images/star-fill.svg' : '/images/star.svg' }"/>
+                                <input type="image" name="ProcessFavAction" style="float:left;" src="${ article.favoris.contains(login) ? '/images/star-fill.svg' : '/images/star.svg' }"/>
 							</c:if>
 
-                                <input type="hidden" name="idArticle" value="${article.id}" />
+
                                 <input type="image" value="ProcessAddAction" name="ProcessAddAction"
                                 src="/images/cart-plus-fill.svg" style="float:right;" />
-
+                                <input type="hidden" name="idArticle" value="${article.id}" /></form>
 						</div>
-						</form>
+
 					</div>
 				</div>
 			</c:forEach>

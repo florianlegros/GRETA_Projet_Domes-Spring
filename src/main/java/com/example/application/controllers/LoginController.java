@@ -16,10 +16,7 @@ import java.util.ArrayList;
 public class LoginController {
 
     @Autowired
-    HomeController homeController;
-    @Autowired
     UserRepository userRepository;
-
 
     @ModelAttribute("cart")
     public ArrayList<Article> getDefaultCart() {

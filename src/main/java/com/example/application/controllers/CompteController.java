@@ -9,13 +9,14 @@ import com.example.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 @Controller
-@SessionAttributes({"login", "cart"})
+@SessionAttributes({"login", "cart","adresses"})
 public class CompteController {
 
     @Autowired
@@ -37,28 +38,29 @@ public class CompteController {
     }
 
     @ModelAttribute("history")
-    public List<Commande> getDefaultHistory(@SessionAttribute("login") User login) {
+    public List<Commande> getDefaultHistory(@ModelAttribute("login") User login) {
 
         userRepository.findByUsername(login.getUsername()).forEach(u -> history = u.getCommande());
         return history;
     }
 
     @ModelAttribute("adresses")
-    public List<Adresse> getDefaultAdresses(@SessionAttribute("login") User login) {
+    public List<Adresse> getDefaultAdresses(@ModelAttribute("login") User login) {
 
         userRepository.findByUsername(login.getUsername()).forEach(u -> adresses = u.getAdresses());
+
         return adresses;
     }
 
     @GetMapping("/compte")
-    public String goCompte(@SessionAttribute("login") User login) {
+    public String goCompte(@ModelAttribute("login") User login) {
 
         return userRepository.checkLogin(login.getUsername(), login.getPassword()) ? "compte" : "redirect:login";
     }
 
     @RequestMapping(value = "/compte", params = "deconnect")
-    public String deconnect(@SessionAttribute("login") User login) {
-        login = new User();
+    public String deconnect(SessionStatus status) {
+        status.setComplete();
         return "redirect:home";
     }
 }

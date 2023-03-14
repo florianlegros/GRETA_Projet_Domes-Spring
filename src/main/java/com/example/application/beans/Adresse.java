@@ -8,7 +8,7 @@ public class Adresse {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String adresse;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
 	public Adresse() {
 	}
@@ -17,9 +17,10 @@ public class Adresse {
 		this.adresse = adresse;
 	}
 
-	public Adresse(int id, String adresse) {
+	public Adresse(int id, String adresse,User user) {
 		this.id = id;
 		this.adresse = adresse;
+		this.user = user;
 	}
 
 	public int getId() {
@@ -38,9 +39,20 @@ public class Adresse {
 		this.adresse = adresse;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-	    return String.valueOf(id);
+		return "Adresse{" +
+				"id=" + id +
+				", adresse='" + adresse + '\'' +
+				'}';
 	}
 
 	@Override

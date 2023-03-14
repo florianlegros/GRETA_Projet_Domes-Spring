@@ -39,11 +39,10 @@
     				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a><a
     				href="/panier" style="text-decoration: none;"><i
     				class="bi bi-cart4"
-    				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"><c:if
-    						test="${cart.size()>0}">
+    				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw">
     						<div
     							style="color: white; background-image: url('/images/paw.svg'); font-size: x-small; border-radius: 50%; text-align: center; display: inline-block; padding: 9px 11px 2px 10px; right: 6.9%; font-weight: bold; position: absolute;">${cart.size()}</div>
-    					</c:if></i></a><a href="#"><i class="bi bi-question-circle-fill"
+    				</i></a><a href="#"><i class="bi bi-question-circle-fill"
     				style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a>
     		</div>
     	</header>
@@ -68,7 +67,7 @@
         									<div class="d-flex justify-content-between">
         										<div class="d-flex flex-row align-items-center">
         											<div class="ms-3">
-        												<h5>${history[0].adresse}</h5>
+        												<h5>${history[0].adresse.adresse}</h5>
         												<p class="small mb-0">${history[0].date}</p>
         												<p class="small mb-0">${history[0].status}</p>
         											</div>
@@ -113,7 +112,7 @@
         												<div class="d-flex justify-content-between">
         													<div class="d-flex flex-row align-items-center">
         														<div class="ms-3">
-        															<h5>${commande.adresse}</h5>
+        															<h5>${commande.adresse.adresse}</h5>
         															<p class="small mb-0">${commande.date}</p>
         															<p class="small mb-0">${commande.status}</p>
         														</div>

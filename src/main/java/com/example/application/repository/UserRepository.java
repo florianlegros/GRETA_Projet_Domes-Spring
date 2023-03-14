@@ -16,4 +16,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     Boolean checkLogin(@Param("username") String username,@Param("password") String password);
 
     List<User> findByUsername(String username);
+
+
 }
